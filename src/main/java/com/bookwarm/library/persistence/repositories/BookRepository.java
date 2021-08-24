@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BookRepository extends CrudRepository<Book, Long> {
     List<Book> findByTitle(String title);
-    List<Book> findByAuthor(Author author);
-    List<Book> findByGenre(Genre genre);
-    List<Book> findByCycle(Cycle cycle);
+    List<Book> findByAuthorId(long authorId);
+    List<Book> findByGenreId(long genreId);
+    List<Book> findByCycleId(long cycleId);
 }

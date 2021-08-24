@@ -3,39 +3,29 @@ package com.bookwarm.library.persistence.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "books")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(nullable = false)
     private String title;
-
-    @Column(nullable = false)
-    private Author author;
-
-    @Column(nullable = false)
-    private Genre genre;
-
-    @Column
-    private Cycle cycle;
-
-    @Column(nullable = false)
+    private long authorId;
+    private long genreId;
+    private long cycleId;
     private String description;
-
-    @Column(nullable = false)
     private String text;
 
     public Book() {
         super();
     }
 
-    public Book(String title, Author author, Genre genre, Cycle cycle, String description, String text) {
+    public Book(String title, long authorId, long genreId, long cycleId, String description, String text) {
         super();
         this.title = title;
-        this.author = author;
-        this.genre = genre;
-        this.cycle = cycle;
+        this.authorId = authorId;
+        this.genreId = genreId;
+        this.cycleId = cycleId;
         this.description = description;
         this.text = text;
     }
@@ -56,28 +46,28 @@ public class Book {
         this.title = title;
     }
 
-    public Author getAuthor() {
-        return author;
+    public long getAuthor() {
+        return authorId;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAuthor(long authorId) {
+        this.authorId = authorId;
     }
 
-    public Genre getGenre() {
-        return genre;
+    public long getGenre() {
+        return genreId;
     }
 
-    public void setGenre(Genre genre) {
-        this.genre = genre;
+    public void setGenre(long genreId) {
+        this.genreId = genreId;
     }
 
-    public Cycle getCycle() {
-        return cycle;
+    public long getCycle() {
+        return cycleId;
     }
 
-    public void setCycle(Cycle cycle) {
-        this.cycle = cycle;
+    public void setCycle(long cycleId) {
+        this.cycleId = cycleId;
     }
 
     public String getDescription() {

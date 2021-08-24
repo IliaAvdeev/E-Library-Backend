@@ -20,16 +20,16 @@ public class BookService {
         return bookRepository.findByTitle(title);
     }
 
-    public List<Book> findByAuthor(Author author) {
-        return bookRepository.findByAuthor(author);
+    public List<Book> findByAuthorId(long authorId) {
+        return bookRepository.findByAuthorId(authorId);
     }
 
-    public List<Book> findByGenre(Genre genre) {
-        return bookRepository.findByGenre(genre);
+    public List<Book> findByGenreId(long genreId) {
+        return bookRepository.findByGenreId(genreId);
     }
 
-    public List<Book> findByCycle(Cycle cycle) {
-        return bookRepository.findByCycle(cycle);
+    public List<Book> findByCycleId(long cycleId) {
+        return bookRepository.findByCycleId(cycleId);
     }
 
     public Book findOne(long id) {

@@ -25,18 +25,18 @@ public class BookController {
     }
 
     @GetMapping("/author/{authorName}")
-    public List<Book> findByAuthor(Author author) {
-        return bookService.findByAuthor(author);
+    public List<Book> findByAuthorId(long authorId) {
+        return bookService.findByAuthorId(authorId);
     }
 
     @GetMapping("/genre/{genreName}")
-    public List<Book> findByGenre(Genre genre) {
-        return bookService.findByGenre(genre);
+    public List<Book> findByGenreId(long genreId) {
+        return bookService.findByGenreId(genreId);
     }
 
     @GetMapping("/cycle/{cycleName}")
-    public List<Book> findByCycle(Cycle cycle) {
-        return bookService.findByCycle(cycle);
+    public List<Book> findByCycleId(long cycleId) {
+        return bookService.findByCycleId(cycleId);
     }
 
     @GetMapping("/{id}")
