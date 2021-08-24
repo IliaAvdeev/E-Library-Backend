@@ -1,6 +1,6 @@
 package com.bookwarm.library.controllers;
 
-import com.bookwarm.library.persistence.model.Book;
+import com.bookwarm.library.persistence.model.*;
 import com.bookwarm.library.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +22,21 @@ public class BookController {
     @GetMapping("/title/{bookTitle}")
     public List<Book> findByTitle(@PathVariable String bookTitle) {
         return bookService.findByTitle(bookTitle);
+    }
+
+    @GetMapping("/author/{authorName}")
+    public List<Book> findByAuthor(Author author) {
+        return bookService.findByAuthor(author);
+    }
+
+    @GetMapping("/genre/{genreName}")
+    public List<Book> findByGenre(Genre genre) {
+        return bookService.findByGenre(genre);
+    }
+
+    @GetMapping("/cycle/{cycleName}")
+    public List<Book> findByCycle(Cycle cycle) {
+        return bookService.findByCycle(cycle);
     }
 
     @GetMapping("/{id}")

@@ -26,7 +26,7 @@ public class Application {
     CommandLineRunner init(AuthorRepository authorRepository) {
         return args -> {
             Stream.of("John", "Julie", "Jennifer", "Helen", "Rachel").forEach(name -> {
-                Author author = new Author(name, new Date(), null);
+                Author author = new Author(name, new Date(), null, "Nizhny Novgorod", null);
                 authorRepository.save(author);
             });
         };

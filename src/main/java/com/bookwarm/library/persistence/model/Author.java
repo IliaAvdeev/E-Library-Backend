@@ -18,15 +18,23 @@ public class Author {
     @Column
     private Date dateOfDeath;
 
+    @Column(nullable = false)
+    private String placeOfBirth;
+
+    @Column
+    private String placeOfDeath;
+
     public Author() {
         super();
     }
 
-    public Author(String name, Date dateOfBirth, Date dateOfDeath) {
+    public Author(String name, Date dateOfBirth, Date dateOfDeath, String placeOfBirth, String placeOfDeath) {
         super();
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.dateOfDeath = dateOfDeath;
+        this.placeOfBirth = placeOfBirth;
+        this.placeOfDeath = placeOfDeath;
     }
 
     public long getId() {
@@ -59,6 +67,22 @@ public class Author {
 
     public void setDateOfDeath(Date dateOfDeath) {
         this.dateOfDeath = dateOfDeath;
+    }
+
+    public String getPlaceOfBirth() {
+        return placeOfBirth;
+    }
+
+    public void setPlaceOfBirth(String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
+    }
+
+    public String getPlaceOfDeath() {
+        return placeOfDeath;
+    }
+
+    public void setPlaceOfDeath(String placeOfDeath) {
+        this.placeOfDeath = placeOfDeath;
     }
 
     @Override
