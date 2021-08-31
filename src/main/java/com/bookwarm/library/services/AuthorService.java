@@ -3,6 +3,7 @@ package com.bookwarm.library.services;
 import com.bookwarm.library.persistence.model.Author;
 import com.bookwarm.library.persistence.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,10 @@ public class AuthorService {
 
     public Iterable<Author> findAll() {
         return authorRepository.findAll();
+    }
+
+    public List<Author> findPaginated(int page, int size) {
+        return authorRepository.findAll(PageRequest.of(page, size)).toList();
     }
 
     public List<Author> findByName(String authorName) {
@@ -35,7 +40,7 @@ public class AuthorService {
         }
     }
 
-    public Author updateAuthor(Author author, long id) {
+    public Author update(Author author, long id) {
         if ((author.getId() == id) && (authorRepository.existsById(id))){
             return authorRepository.save(author);
         } return null;

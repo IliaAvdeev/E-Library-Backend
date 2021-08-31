@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/authors")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthorController {
     @Autowired
     private AuthorService authorService;
@@ -17,6 +18,11 @@ public class AuthorController {
     @GetMapping
     public Iterable<Author> findAll() {
         return authorService.findAll();
+    }
+
+    @GetMapping(params = { "page", "size" })
+    public List<Author> findPaginated(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return authorService.findPaginated(page, size);
     }
 
     @GetMapping("/name/{authorName}")
@@ -41,8 +47,8 @@ public class AuthorController {
     }
 
     @PutMapping("/{id}")
-    public Author updateAuthor(@RequestBody Author author, @PathVariable long id) {
-        return authorService.updateAuthor(author, id);
+    public Author update(@RequestBody Author author, @PathVariable long id) {
+        return authorService.update(author, id);
     }
 }
 

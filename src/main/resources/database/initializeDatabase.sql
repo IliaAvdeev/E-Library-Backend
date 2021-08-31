@@ -13,7 +13,12 @@ CREATE TABLE IF NOT EXISTS cycles
 CREATE TABLE IF NOT EXISTS authors
 (
     id    BIGSERIAL PRIMARY KEY,
-    name  VARCHAR(200) NOT NULL
+    name  VARCHAR(200) NOT NULL,
+    date_of_birth DATE NOT NULL,
+    date_of_death DATE,
+    country_of_birth VARCHAR(200) NOT NULL,
+    country_of_death VARCHAR(200),
+    biography TEXT
 );
 
 CREATE TABLE IF NOT EXISTS books
@@ -22,7 +27,7 @@ CREATE TABLE IF NOT EXISTS books
     title  VARCHAR(500) NOT NULL,
     author_id BIGSERIAL NOT NULL REFERENCES authors(id),
     genre_id BIGSERIAL NOT NULL REFERENCES genres(id),
-    cycles_id BIGSERIAL REFERENCES cycles(id),
-    description TEXT NOT NULL,
+    cycle_id BIGSERIAL REFERENCES cycles(id),
+    description TEXT,
     text TEXT NOT NULL
 );
