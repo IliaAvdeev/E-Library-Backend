@@ -6,13 +6,20 @@ import javax.persistence.*;
 @Table(name = "books")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String title;
+
+    @Column(name = "author_id")
     private long authorId;
+
+    @Column(name = "genre_id")
     private long genreId;
+
+    @Column(name = "cycle_id")
     private long cycleId;
+
     private String description;
     private String text;
 

@@ -3,10 +3,10 @@ package com.bookwarm.library.persistence.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cycles")
+@Table(name = "genres")
 public class Genre {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;

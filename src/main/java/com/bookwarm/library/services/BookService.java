@@ -1,8 +1,9 @@
 package com.bookwarm.library.services;
 
-import com.bookwarm.library.persistence.model.*;
+import com.bookwarm.library.persistence.model.Book;
 import com.bookwarm.library.persistence.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,10 @@ public class BookService {
 
     public Iterable<Book> findAll() {
         return bookRepository.findAll();
+    }
+
+    public List<Book> findPaginated(int page, int size) {
+        return bookRepository.findAll(PageRequest.of(page, size)).toList();
     }
 
     public List<Book> findByTitle(String title) {
