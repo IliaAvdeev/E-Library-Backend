@@ -46,6 +46,11 @@ public class AuthorController {
         authorService.delete(id);
     }
 
+    @PostMapping("/bulkDelete")
+    public void deleteAll(@RequestBody List<Long> ids) {
+        authorService.deleteAll(ids);
+    }
+
     @PutMapping("/{id}")
     public Author update(@RequestBody Author author, @PathVariable long id) {
         return authorService.update(author, id);
