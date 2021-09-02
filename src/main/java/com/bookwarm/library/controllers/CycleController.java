@@ -20,6 +20,11 @@ public class CycleController {
         return cycleService.findAll();
     }
 
+    @GetMapping(params = { "page", "size" })
+    public List<Cycle> findPaginated(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return cycleService.findPaginated(page, size);
+    }
+
     @GetMapping("/name/{cycleName}")
     public List<Cycle> findByName(@PathVariable String cycleName) {
         return cycleService.findByName(cycleName);
@@ -39,6 +44,11 @@ public class CycleController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable long id) {
         cycleService.delete(id);
+    }
+
+    @PostMapping("/bulkDelete")
+    public void deleteAll(@RequestBody List<Long> ids) {
+        cycleService.deleteAll(ids);
     }
 
     @PutMapping("/{id}")
