@@ -3,6 +3,7 @@ package com.bookwarm.library.services;
 import com.bookwarm.library.persistence.model.Cycle;
 import com.bookwarm.library.persistence.repositories.CycleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,10 @@ public class CycleService {
 
     public Iterable<Cycle> findAll() {
         return cycleRepository.findAll();
+    }
+
+    public List<Cycle> findPaginated(int page, int size) {
+        return cycleRepository.findAll(PageRequest.of(page, size)).toList();
     }
 
     public List<Cycle> findByName(String cycleName) {
@@ -32,6 +37,12 @@ public class CycleService {
     public void delete(long id) {
         if (cycleRepository.existsById(id)) {
             cycleRepository.deleteById(id);
+        }
+    }
+
+    public void deleteAll(List<Long> ids) {
+        if (ids.stream().allMatch(id -> cycleRepository.existsById(id))) {
+            cycleRepository.deleteAllById(ids);
         }
     }
 

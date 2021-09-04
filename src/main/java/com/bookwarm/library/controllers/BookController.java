@@ -61,6 +61,11 @@ public class BookController {
         bookService.delete(id);
     }
 
+    @PostMapping("/bulkDelete")
+    public void deleteAll(@RequestBody List<Long> ids) {
+        bookService.deleteAll(ids);
+    }
+
     @PutMapping("/{id}")
     public Book updateBook(@RequestBody Book book, @PathVariable long id) {
         return bookService.updateBook(book, id);

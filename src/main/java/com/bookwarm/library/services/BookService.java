@@ -52,6 +52,12 @@ public class BookService {
         }
     }
 
+    public void deleteAll(List<Long> ids) {
+        if (ids.stream().allMatch(id -> bookRepository.existsById(id))) {
+            bookRepository.deleteAllById(ids);
+        }
+    }
+
     public Book updateBook(Book book, long id) {
         if ((book.getId() == id) && (bookRepository.existsById(id))){
             return bookRepository.save(book);

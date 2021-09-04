@@ -20,6 +20,11 @@ public class GenreController {
         return genreService.findAll();
     }
 
+    @GetMapping(params = { "page", "size" })
+    public List<Genre> findPaginated(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return genreService.findPaginated(page, size);
+    }
+
     @GetMapping("/name/{genreName}")
     public List<Genre> findByName(@PathVariable String genreName) {
         return genreService.findByName(genreName);
@@ -39,6 +44,11 @@ public class GenreController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable long id) {
         genreService.delete(id);
+    }
+
+    @PostMapping("/bulkDelete")
+    public void deleteAll(@RequestBody List<Long> ids) {
+        genreService.deleteAll(ids);
     }
 
     @PutMapping("/{id}")

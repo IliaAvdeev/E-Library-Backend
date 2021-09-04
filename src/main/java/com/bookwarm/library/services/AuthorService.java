@@ -40,6 +40,12 @@ public class AuthorService {
         }
     }
 
+    public void deleteAll(List<Long> ids) {
+        if (ids.stream().allMatch(id -> authorRepository.existsById(id))) {
+            authorRepository.deleteAllById(ids);
+        }
+    }
+
     public Author update(Author author, long id) {
         if ((author.getId() == id) && (authorRepository.existsById(id))){
             return authorRepository.save(author);

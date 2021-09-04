@@ -3,6 +3,7 @@ package com.bookwarm.library.services;
 import com.bookwarm.library.persistence.model.Genre;
 import com.bookwarm.library.persistence.repositories.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,10 @@ public class GenreService {
 
     public Iterable<Genre> findAll() {
         return genreRepository.findAll();
+    }
+
+    public List<Genre> findPaginated(int page, int size) {
+        return genreRepository.findAll(PageRequest.of(page, size)).toList();
     }
 
     public List<Genre> findByName(String genreName) {
@@ -32,6 +37,12 @@ public class GenreService {
     public void delete(long id) {
         if (genreRepository.existsById(id)) {
             genreRepository.deleteById(id);
+        }
+    }
+
+    public void deleteAll(List<Long> ids) {
+        if (ids.stream().allMatch(id -> genreRepository.existsById(id))) {
+            genreRepository.deleteAllById(ids);
         }
     }
 
