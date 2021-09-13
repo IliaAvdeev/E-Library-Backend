@@ -21,10 +21,6 @@ public class BookService {
         return bookRepository.findAll(PageRequest.of(page, size)).toList();
     }
 
-    public List<Book> findByTitle(String title) {
-        return bookRepository.findByTitle(title);
-    }
-
     public List<Book> findByAuthorId(long authorId) {
         return bookRepository.findByAuthorId(authorId);
     }
@@ -58,9 +54,10 @@ public class BookService {
         }
     }
 
-    public Book updateBook(Book book, long id) {
-        if ((book.getId() == id) && (bookRepository.existsById(id))){
+    public Book update(Book book, long id) {
+        if ((book.getId() == id) && (bookRepository.existsById(id))) {
             return bookRepository.save(book);
-        } return null;
+        }
+        return null;
     }
 }

@@ -9,49 +9,43 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/authors")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class AuthorController {
     @Autowired
     private AuthorService authorService;
 
-    @GetMapping
+    @GetMapping("/authors")
     public Iterable<Author> findAll() {
         return authorService.findAll();
     }
 
-    @GetMapping(params = { "page", "size" })
+    @GetMapping(value = "/authors", params = {"page", "size"})
     public List<Author> findPaginated(@RequestParam("page") int page, @RequestParam("size") int size) {
         return authorService.findPaginated(page, size);
     }
 
-    @GetMapping("/name/{authorName}")
-    public List<Author> findByName(@PathVariable String authorName) {
-        return authorService.findByName(authorName);
-    }
-
-    @GetMapping("/{id}")
+    @GetMapping("/authors/{id}")
     public Author findOne(@PathVariable long id) {
         return authorService.findOne(id);
     }
 
-    @PostMapping
+    @PostMapping("/admin/authors/create")
     @ResponseStatus(HttpStatus.CREATED)
     public Author create(@RequestBody Author author) {
         return authorService.create(author);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/authors/delete/{id}")
     public void delete(@PathVariable long id) {
         authorService.delete(id);
     }
 
-    @PostMapping("/bulkDelete")
+    @PostMapping("/admin/authors/delete/multiple")
     public void deleteAll(@RequestBody List<Long> ids) {
         authorService.deleteAll(ids);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/authors/update/{id}")
     public Author update(@RequestBody Author author, @PathVariable long id) {
         return authorService.update(author, id);
     }

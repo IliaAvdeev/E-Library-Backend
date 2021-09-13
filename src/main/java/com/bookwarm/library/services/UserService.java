@@ -1,49 +1,65 @@
 package com.bookwarm.library.services;
 
+import com.bookwarm.library.exceptions.UserAlreadyExistsException;
 import com.bookwarm.library.persistence.model.User;
 import com.bookwarm.library.persistence.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }
 
-    public User findByEmail(String email, String password) {
-        User user = userRepository.findByEmail(email);
-        if ((user != null) && (user.getPassword().equals(password))) {
-            return userRepository.findByEmail(email);
-        } return null;
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public User findOne(long id) {
-        return userRepository.findById(id)
-                .orElse(null);
+    public boolean ifEmailExists(String email) {
+        return findByEmail(email) != null;
     }
 
-    public User create(User user) {
+    public boolean ifUsernameExists(String username) {
+        return findByUsername(username) != null;
+    }
+
+    public User create(User user) throws UserAlreadyExistsException {
+        if (ifEmailExists(user.getEmail())) {
+            throw new UserAlreadyExistsException("Пользователь с таким e-mail уже существует.");
+        }
+        if (ifUsernameExists(user.getUsername())) {
+            throw new UserAlreadyExistsException("Пользователь с таким именем уже существует.");
+        }
+        user.setPassword(encodePassword(user.getPassword()));
         return userRepository.save(user);
     }
 
-    public void delete(long id) {
-        if (userRepository.existsById(id)) {
-            userRepository.deleteById(id);
-        }
+    private String encodePassword(String password) {
+        return passwordEncoder.encode(password);
     }
 
-    public User update(User user, long id) {
-        if ((user.getId() == id) && (userRepository.existsById(id))) {
-            return userRepository.save(user);
-        } return null;
+    public boolean verifyPassword(User user, String password) {
+        return passwordEncoder.matches(password, user.getPassword());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return findByUsername(s);
     }
 }
