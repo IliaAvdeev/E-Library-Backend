@@ -21,10 +21,6 @@ public class GenreService {
         return genreRepository.findAll(PageRequest.of(page, size)).toList();
     }
 
-    public List<Genre> findByName(String genreName) {
-        return genreRepository.findByName(genreName);
-    }
-
     public Genre findOne(long id) {
         return genreRepository.findById(id)
                 .orElse(null);
@@ -46,9 +42,10 @@ public class GenreService {
         }
     }
 
-    public Genre updateGenre(Genre genre, long id) {
-        if ((genre.getId() == id) && (genreRepository.existsById(id))){
+    public Genre update(Genre genre, long id) {
+        if ((genre.getId() == id) && (genreRepository.existsById(id))) {
             return genreRepository.save(genre);
-        } return null;
+        }
+        return null;
     }
 }

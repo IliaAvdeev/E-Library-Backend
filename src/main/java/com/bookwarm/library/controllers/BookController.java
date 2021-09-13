@@ -9,65 +9,59 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/books")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class BookController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping
+    @GetMapping("/books")
     public Iterable<Book> findAll() {
         return bookService.findAll();
     }
 
-    @GetMapping(params = { "page", "size" })
+    @GetMapping(value = "/books", params = {"page", "size"})
     public List<Book> findPaginated(@RequestParam("page") int page, @RequestParam("size") int size) {
         return bookService.findPaginated(page, size);
     }
 
-    @GetMapping("/title/{bookTitle}")
-    public List<Book> findByTitle(@PathVariable String bookTitle) {
-        return bookService.findByTitle(bookTitle);
-    }
-
-    @GetMapping("/author/{authorId}")
+    @GetMapping("/books/author/{authorId}")
     public List<Book> findByAuthorId(@PathVariable long authorId) {
         return bookService.findByAuthorId(authorId);
     }
 
-    @GetMapping("/genre/{genreId}")
+    @GetMapping("/books/genre/{genreId}")
     public List<Book> findByGenreId(@PathVariable long genreId) {
         return bookService.findByGenreId(genreId);
     }
 
-    @GetMapping("/cycle/{cycleId}")
+    @GetMapping("/books/cycle/{cycleId}")
     public List<Book> findByCycleId(@PathVariable long cycleId) {
         return bookService.findByCycleId(cycleId);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/books/{id}")
     public Book findOne(@PathVariable long id) {
         return bookService.findOne(id);
     }
 
-    @PostMapping
+    @PostMapping("/admin/books/create")
     @ResponseStatus(HttpStatus.CREATED)
     public Book create(@RequestBody Book book) {
         return bookService.create(book);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/books/delete/{id}")
     public void delete(@PathVariable long id) {
         bookService.delete(id);
     }
 
-    @PostMapping("/bulkDelete")
+    @PostMapping("/admin/books/delete/multiple")
     public void deleteAll(@RequestBody List<Long> ids) {
         bookService.deleteAll(ids);
     }
 
-    @PutMapping("/{id}")
-    public Book updateBook(@RequestBody Book book, @PathVariable long id) {
-        return bookService.updateBook(book, id);
+    @PutMapping("/admin/books/update/{id}")
+    public Book update(@RequestBody Book book, @PathVariable long id) {
+        return bookService.update(book, id);
     }
 }

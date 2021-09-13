@@ -21,10 +21,6 @@ public class CycleService {
         return cycleRepository.findAll(PageRequest.of(page, size)).toList();
     }
 
-    public List<Cycle> findByName(String cycleName) {
-        return cycleRepository.findByName(cycleName);
-    }
-
     public Cycle findOne(long id) {
         return cycleRepository.findById(id)
                 .orElse(null);
@@ -46,9 +42,10 @@ public class CycleService {
         }
     }
 
-    public Cycle updateCycle(Cycle cycle, long id) {
-        if ((cycle.getId() == id) && (cycleRepository.existsById(id))){
+    public Cycle update(Cycle cycle, long id) {
+        if ((cycle.getId() == id) && (cycleRepository.existsById(id))) {
             return cycleRepository.save(cycle);
-        } return null;
+        }
+        return null;
     }
 }

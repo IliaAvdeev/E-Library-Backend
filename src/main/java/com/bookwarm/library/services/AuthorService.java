@@ -21,10 +21,6 @@ public class AuthorService {
         return authorRepository.findAll(PageRequest.of(page, size)).toList();
     }
 
-    public List<Author> findByName(String authorName) {
-        return authorRepository.findByName(authorName);
-    }
-
     public Author findOne(long id) {
         return authorRepository.findById(id)
                 .orElse(null);
@@ -47,8 +43,9 @@ public class AuthorService {
     }
 
     public Author update(Author author, long id) {
-        if ((author.getId() == id) && (authorRepository.existsById(id))){
+        if ((author.getId() == id) && (authorRepository.existsById(id))) {
             return authorRepository.save(author);
-        } return null;
+        }
+        return null;
     }
 }
